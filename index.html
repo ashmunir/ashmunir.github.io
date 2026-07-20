@@ -21,7 +21,8 @@ a:hover{color:#0F2C52;}
 @keyframes roleFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 @keyframes chatIn{from{opacity:0;transform:translateY(16px) scale(0.98);}to{opacity:1;transform:translateY(0) scale(1);}}
 @keyframes blink{0%,60%,100%{opacity:0.25;transform:translateY(0);}30%{opacity:1;transform:translateY(-3px);}}
-.pf-main{padding:96px 72px 96px 88px;max-width:920px;}
+.pf-main{flex:1;min-width:0;padding:96px 72px 96px 88px;display:flex;justify-content:center;}
+.pf-main-inner{width:100%;max-width:960px;}
 .pf-side{width:340px;flex-shrink:0;position:sticky;top:0;height:100vh;padding:34px 34px 24px;background:linear-gradient(180deg,#0E2A4F 0%,#123C6E 100%);color:#C3D3E8;display:flex;flex-direction:column;overflow:hidden;}
 .pf-intro-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:48px;align-items:center;}
 .pf-exp-row{display:grid;grid-template-columns:150px 1fr;gap:28px;}
@@ -103,6 +104,7 @@ a:hover{color:#0F2C52;}
 
   <!-- MAIN -->
   <main class="pf-main">
+   <div class="pf-main-inner">
 
     <!-- INTRO -->
     <section id="about" style="scroll-margin-top:32px;">
@@ -307,6 +309,7 @@ a:hover{color:#0F2C52;}
       <div style="margin-top:64px;padding-top:24px;border-top:1px solid #EEF2F7;color:#94A3B8;font-size:13.5px;">© {{ year }} Ayesha Munir · Santiago de Compostela, Spain</div>
     </section>
 
+   </div>
   </main>
 
   <!-- CHAT WIDGET -->
