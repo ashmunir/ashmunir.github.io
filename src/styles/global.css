@@ -140,7 +140,7 @@ body {
    column (used by Skills so its 3-card row has room). The bleed is capped
    so it never overflows the sidebar or viewport. */
 .pf-section-wide {
-  --wide-bleed: clamp(0px, calc((100vw - 340px - 760px) / 2 - 24px), 120px);
+  --wide-bleed: clamp(0px, calc((100vw - 340px - 760px) / 2 - 40px), 56px);
   width: calc(100% + 2 * var(--wide-bleed));
   margin-inline: calc(-1 * var(--wide-bleed));
 }
