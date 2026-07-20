@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Ayesha Munir — AI Software Engineer & Researcher',
+  description = 'Ayesha Munir is an AI Software Engineer and Researcher based in Santiago de Compostela, Spain, building healthcare-AI, RAG and LLM systems, plus React and React Native products.',
+} = Astro.props;
+
+const siteUrl = 'https://ashmunir.github.io/';
+const ogImage = `${siteUrl}assets/ayesha-round.jpg`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? siteUrl).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Ayesha Munir" />
+    <meta
+      name="keywords"
+      content="Ayesha Munir, AI Software Engineer, Machine Learning, RAG, LLM, LangChain, PyTorch, React, React Native, Healthcare AI, Santiago de Compostela"
+    />
+    <meta name="theme-color" content="#0E2A4F" />
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/assets/app-icon.png" />
+    <link rel="apple-touch-icon" href="/assets/app-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ayesha Munir" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

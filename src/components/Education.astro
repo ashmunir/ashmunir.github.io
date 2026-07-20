@@ -1,0 +1,57 @@
+---
+import Icon from './Icon.tsx';
+import SectionHeading from './SectionHeading.astro';
+import { degrees, certifications, training } from '../data/portfolio';
+---
+
+<section id="education" class="mt-[104px] scroll-mt-8">
+  <SectionHeading icon="education" title="Education" class="mb-9" />
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+    {degrees.map((d) => (
+      <div class="flex flex-col rounded-[18px] border border-[#E9EEF4] bg-white p-[24px_24px_22px] shadow-[0_1px_2px_rgba(15,44,82,0.04)]">
+        <div class="mb-2 text-[13px] font-bold text-slate-400">{d.period}</div>
+        <h3 class="m-0 mb-[3px] text-[clamp(17px,4.4vw,19px)] text-ink">{d.title}</h3>
+        <a
+          href={d.orgUrl}
+          target="_blank"
+          rel="noopener"
+          class="mb-3 inline-flex items-center gap-1.5 text-[14.5px] font-bold text-brand transition-colors hover:text-teal"
+        >
+          {d.org}
+          <Icon name="web" size={14} strokeWidth={1.8} />
+        </a>
+        <p class="m-0 text-pretty text-[14.5px] text-slate-600">{d.desc}</p>
+        {d.thesis && (
+          <p class="m-0 mt-3 border-l-2 border-teal pl-3.5 text-pretty text-[14px] text-slate-600">
+            <strong class="text-ink">Thesis</strong> — {d.thesis}
+          </p>
+        )}
+        {d.badges && (
+          <div class="mt-4 flex flex-wrap gap-2">
+            {d.badges.map((b, i) => (
+              <span
+                class={
+                  i === 0
+                    ? 'rounded-full border border-[#FBE3B3] bg-[#FEF6E7] px-3 py-[5px] text-[12.5px] font-bold text-[#B7791F]'
+                    : 'rounded-full border border-[#E6EDF5] bg-[#F5F8FC] px-3 py-[5px] text-[12.5px] font-bold text-slate-600'
+                }
+              >
+                {b}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+  <div class="pf-two mt-8">
+    <div class="border-t border-[#EEF2F7] pt-[18px]">
+      <h4 class="m-0 mb-2.5 text-[13px] uppercase tracking-[1px] text-slate-400">Certifications</h4>
+      <p class="m-0 text-[15px] text-slate-600">{certifications}</p>
+    </div>
+    <div class="border-t border-[#EEF2F7] pt-[18px]">
+      <h4 class="m-0 mb-2.5 text-[13px] uppercase tracking-[1px] text-slate-400">Training</h4>
+      <p class="m-0 text-pretty text-[15px] text-slate-600">{training}</p>
+    </div>
+  </div>
+</section>

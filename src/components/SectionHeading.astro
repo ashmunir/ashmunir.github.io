@@ -1,0 +1,19 @@
+---
+import Icon from './Icon.tsx';
+import type { IconGlyph } from './Icon.tsx';
+
+interface Props {
+  icon: IconGlyph;
+  title: string;
+  class?: string;
+}
+
+const { icon, title, class: className = '' } = Astro.props;
+---
+
+<div class={`flex items-center gap-3 border-b border-[#E9EEF4] pb-4 ${className}`}>
+  <span class="inline-flex h-[34px] w-[34px] items-center justify-center rounded-[10px] bg-[#E1F4F6] text-[#0E7C8A]">
+    <Icon name={icon} size={19} />
+  </span>
+  <h2 class="m-0 text-[clamp(21px,5vw,26px)] font-bold tracking-[-0.5px] text-ink">{title}</h2>
+</div>

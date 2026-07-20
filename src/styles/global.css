@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Fonts
+--------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("/fonts/AtkinsonHyperlegible-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ---------------------------------------------------------------------------
+   Design tokens (Tailwind v4 theme). Slate greys reuse Tailwind defaults.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: "Atkinson Hyperlegible", system-ui, sans-serif;
+
+  --color-ink: #0f2c52;        /* primary heading navy */
+  --color-brand: #2c5c9a;      /* primary blue (links, buttons) */
+  --color-brand-dark: #0f2c52;
+  --color-teal: #0ea5b7;
+  --color-teal-light: #22c0ce;
+  --color-cyan: #4fd1de;
+  --color-navy-1: #0e2a4f;     /* sidebar gradient start */
+  --color-navy-2: #123c6e;     /* sidebar gradient end */
+
+  --animate-role-fade: role-fade 0.5s ease both;
+  --animate-fade-in: fade-in 0.2s ease both;
+}
+
+@keyframes role-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 32px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: #334155;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+::selection {
+  background: #ddeef9;
+  color: #0f2c52;
+}
+
+/* ---------------------------------------------------------------------------
+   Layout: sidebar shell, content grids and responsive drawer.
+   Content is kept at a moderate width and centered so leftover space is
+   balanced (not dumped on the right) without stretching the text.
+--------------------------------------------------------------------------- */
+.pf-wrap {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1700px;
+  margin-inline: auto;
+}
+.pf-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 88px 72px;
+}
+/* Symmetric auto margins keep the content column centered in the main
+   area, so leftover space is balanced on both sides instead of the right. */
+.pf-main-inner {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+}
+.pf-side {
+  width: 340px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 34px 34px 24px;
+  background: linear-gradient(180deg, #0e2a4f 0%, #123c6e 100%);
+  color: #c3d3e8;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.pf-intro-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.pf-exp-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 28px;
+}
+.pf-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.pf-topbar {
+  display: none;
+}
+.pf-drawer-backdrop {
+  display: none;
+}
+.pf-portrait-frame {
+  width: 120px;
+}
+/* Let a single section extend symmetrically beyond the narrow content
+   column (used by Skills so its 3-card row has room). The bleed is capped
+   so it never overflows the sidebar or viewport. */
+.pf-section-wide {
+  --wide-bleed: clamp(0px, calc((100vw - 340px - 760px) / 2 - 24px), 120px);
+  width: calc(100% + 2 * var(--wide-bleed));
+  margin-inline: calc(-1 * var(--wide-bleed));
+}
+
+@media (max-width: 1080px) {
+  .pf-main {
+    padding: 72px 40px;
+  }
+  .pf-side {
+    width: 300px;
+    padding: 48px 32px;
+  }
+}
+
+@media (max-width: 860px) {
+  .pf-wrap {
+    flex-direction: column;
+  }
+  .pf-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    width: 100%;
+    padding: 12px 18px;
+    background: #f7f8fa;
+    border-bottom: 1px solid #e9eef4;
+  }
+  .pf-side {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 70;
+    width: min(320px, 86vw);
+    height: 100dvh;
+    padding: 28px 24px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 6px 0 40px rgba(8, 20, 40, 0.35);
+    overflow-y: auto;
+  }
+  .pf-side.pf-side-open {
+    transform: translateX(0);
+  }
+  .pf-drawer-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 65;
+    background: rgba(8, 20, 40, 0.5);
+    animation: fade-in 0.2s ease;
+  }
+  .pf-main {
+    padding: 32px 22px 52px;
+    max-width: 100%;
+  }
+  .pf-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+    justify-items: center;
+  }
+  .pf-intro-grid .pf-portrait {
+    order: -1;
+    justify-self: center;
+  }
+  .pf-portrait-frame {
+    width: 104px;
+  }
+  .pf-exp-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .pf-two {
+    grid-template-columns: 1fr;
+  }
+}
